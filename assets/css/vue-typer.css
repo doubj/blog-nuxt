@@ -1,0 +1,13 @@
+.vue-typer {
+    font-weight: bold;
+    font-size: 42px;
+    letter-spacing: 2px;
+}
+
+.vue-typer .custom.char.typed {
+    color: #ffffff;
+}
+
+.vue-typer .custom.caret {
+    display: none;
+}

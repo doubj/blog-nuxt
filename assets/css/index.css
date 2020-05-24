@@ -1,0 +1,164 @@
+html {
+    line-height: 1.5;
+    font-family: '微软雅黑';
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 滚动条宽度 */
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+/* 滚动条的滑块 */
+
+::-webkit-scrollbar-thumb {
+    background-color: #2bcbba;
+    border-radius: 30px;
+}
+
+body {
+    margin: 0;
+    /* background-color: #eaeaea; */
+    color: #34495e;
+}
+
+.main {
+    min-width: 100%;
+    margin: 20px 0 0;
+}
+
+.main-content {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.blog-info {
+    color: #525f7f;
+    font-size: 15px;
+}
+
+.right-10 {
+    margin-right: 10px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 0 12px;
+    font-size: 1rem;
+    font-weight: 400;
+    height: 25px;
+    line-height: 24px;
+    color: #fff;
+    border-radius: 15px;
+    margin-right: 5px;
+    margin-bottom: 2px;
+}
+
+.base-bgcolor {
+    /* background-image: linear-gradient(to right, #576574 0%, #222f3e 100%); */
+    background-color: #576574;
+}
+
+.text-center {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
+}
+
+.display-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#mk h1 {
+    margin: 42px 0 18px -5px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    line-height: 1.8rem;
+}
+
+#mk blockquote {
+    border-left: 5px solid #42b983;
+    padding: 1rem 0.8rem 0.2rem 0.8rem;
+    color: #666;
+    background-color: rgba(66, 185, 131, .1);
+}
+
+#mk p {
+    margin: 2px 2px 10px;
+    font-size: 1.05rem;
+    line-height: 1.85rem;
+}
+
+#mk a {
+    padding: 0 2px;
+    color: #42b983;
+    font-weight: 500;
+    text-decoration: underline;
+    word-wrap: break-word;
+}
+
+#mk img {
+    width: 100%
+}
+
+#mk .target-fix {
+    position: relative;
+    top: -30px;
+    display: block;
+    height: 0;
+    overflow: hidden;
+}
+
+#mk p>code {
+    padding: 1px 5px;
+    top: 13px !important;
+    font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+}
+
+.el-drawer.rtl .el-drawer__body {
+    overflow-y: auto;
+}
+
+.card {
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.card:hover {
+    transform: scale(1.05, 1.05) !important;
+}
+
+.null-info {
+    text-align: center;
+    margin: 25% 0;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.page-enter-active, .page-leave-active {
+    transition: opacity 2s;
+}
+
+.page-enter, .page-leave-active {
+    opacity: 0;
+}
