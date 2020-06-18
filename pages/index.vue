@@ -80,6 +80,7 @@
             @filterTag="filterTag($event)"
             :key="index"
             :blog="item"
+            :width="'30%'"
           ></card>
           <el-divider style="font-family:'黑体'" v-if="noMore" content-position="center">已经到底啦</el-divider>
         </div>
