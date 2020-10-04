@@ -13,15 +13,14 @@ html {
 /* 滚动条宽度 */
 
 ::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
+    width: 3px;
+    height: 3px;
 }
 
 /* 滚动条的滑块 */
 
 ::-webkit-scrollbar-thumb {
     background-color: #2bcbba;
-    border-radius: 30px;
 }
 
 body {
@@ -153,12 +152,4 @@ body {
     margin: 25% 0;
     font-size: 30px;
     font-weight: 800;
-}
-
-.page-enter-active, .page-leave-active {
-    transition: opacity 2s;
-}
-
-.page-enter, .page-leave-active {
-    opacity: 0;
 }

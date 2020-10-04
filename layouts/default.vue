@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-      <navbar />
+      <Top />
       <div class="main" id="main">
         <nuxt />
       </div>
@@ -13,10 +13,10 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar";
+import Top from "@/components/Top";
 import Drawer from "@/components/Drawer";
 import Footer from "@/components/Footer";
 export default {
-  components: { Navbar, Footer, Drawer},
+  components: { Top, Footer, Drawer},
 };
 </script>

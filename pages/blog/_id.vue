@@ -128,6 +128,9 @@ export default {
   created() {
     this.init();
   },
+  destroyed() {
+    this.$store.commit("setTitle", "");
+  },
   methods: {
     init() {
       this.$store.commit("setImage", this.blog.blogCoverImage);

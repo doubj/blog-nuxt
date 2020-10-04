@@ -1,38 +1,14 @@
 <template>
-  <div>
-    <el-row type="flex" class="main-content">
-      <el-col style="padding: 0 0 50px 0;" :span="6">
-        <el-card
-          data-aos="zoom-in-up"
-          data-aos-duration="800"
-          data-aos-anchor-placement="center-bottom"
-          data-aos-easing="ease-in-out"
-          style="width:100%;margin-top:10px;"
-        >
-          <div slot="header">
-            <span>推荐阅读</span>
-            <el-tooltip class="item" effect="dark" content="根据每月文章点击量进行排序" placement="top">
-              <i style="float: right; padding: 3px 0" class="el-icon-question"></i>
-            </el-tooltip>
-          </div>
-          <div v-for="(item, index) in recommendList" :key="index" class="recommend-item">
-            <nuxt-link :to="item.value | linkFilter">
-              <span>{{item.value | titleFilter}}</span>
-            </nuxt-link>
-          </div>
-        </el-card>
-        <el-card
-          data-aos="zoom-in-up"
-          data-aos-duration="800"
-          data-aos-anchor-placement="center-bottom"
-          data-aos-easing="ease-in-out"
-          style="margin-top:20px;width:100%;;position:sticky;top:100px"
-        >
+  <div style="display: flex;flex-direction: column; width: 100%;">
+    <div class="main-content" style="position: relative">
+      <div class="query-container" :style="{ top:  queryContainerTopValue + 'px'}">
+        <div :style="{ transform: showQueryCard ? 'translateX(-100%)' : 'translateX(0)' }" class="query-button" @click="showQueryCard=!showQueryCard">
+          <span>检索选项卡</span>
+        </div>
+        <el-card :style="{ transform: showQueryCard ? 'translateX(0)' : 'translateX(-100%)' }" class="query-card">
           <div slot="header">
             <span>检索选项卡</span>
-            <el-tooltip class="item" effect="dark" content="可在此处根据分类和标签检索文章" placement="top">
-              <i style="float: right; padding: 3px 0" class="el-icon-question"></i>
-            </el-tooltip>
+            <i style="font-size: 16px;float: right;cursor: pointer;" class="iconfont icon-left1" @click="showQueryCard=!showQueryCard"></i>
           </div>
           <el-select
             style="width:100%"
@@ -41,8 +17,8 @@
             placeholder="请选择文章分类"
           >
             <el-option
-              v-for="(item,index) in categoryOptions"
-              :key="item+index"
+              v-for="(item, index) in categoryOptions"
+              :key="item + index"
               :label="item"
               :value="item"
             />
@@ -54,38 +30,46 @@
             placeholder="请选择文章标签"
           >
             <el-option
-              v-for="(item,index) in tagOptions"
-              :key="item+index"
+              v-for="(item, index) in tagOptions"
+              :key="item + index"
               :label="item"
               :value="item"
             />
           </el-select>
-          <el-button class="btn-query" type="success" @click="handleClick">查询</el-button>
+          <el-button class="btn-query" type="success" @click="handleClick"
+            >查询</el-button
+          >
         </el-card>
-      </el-col>
-      <el-col
-        v-loading="loading"
-        v-infinite-scroll="loadMore"
-        infinite-scroll-disabled="busy"
-        infinite-scroll-distance="30"
-        style="margin-left: 40px;"
-      >
-        <div class="null-info" v-if="list.length == 0">
-          <span>没有找到符合要求的文章哦~</span>
-        </div>
-        <div class="card-box" v-if="list.length > 0">
-          <card
-            v-for="(item, index) in list"
-            @filterCategory="filterCategory($event)"
-            @filterTag="filterTag($event)"
-            :key="index"
-            :blog="item"
-            :width="'30%'"
-          ></card>
-          <el-divider style="font-family:'黑体'" v-if="noMore" content-position="center">已经到底啦</el-divider>
-        </div>
-      </el-col>
-    </el-row>
+      </div>
+      <el-row type="flex">
+        <el-col
+          v-loading="loading"
+          v-infinite-scroll="loadMore"
+          infinite-scroll-disabled="busy"
+          infinite-scroll-distance="30"
+        >
+          <div class="null-info" v-if="list.length == 0">
+            <span>没有找到符合要求的文章哦~</span>
+          </div>
+          <div class="card-box" v-if="list.length > 0">
+            <card
+              v-for="(item, index) in list"
+              @filterCategory="filterCategory($event)"
+              @filterTag="filterTag($event)"
+              :key="index"
+              :blog="item"
+              :width="'30%'"
+            ></card>
+            <el-divider
+              style="font-family:'黑体'"
+              v-if="noMore"
+              content-position="center"
+              >已经到底啦</el-divider
+            >
+          </div>
+        </el-col>
+      </el-row>
+    </div>
     <About></About>
   </div>
 </template>
@@ -97,22 +81,12 @@ import About from "@/components/About";
 export default {
   name: "Home",
   async asyncData({ $axios }) {
-    const recommendRes = await $axios.$get(`recommend`);
     const categoryRes = await $axios.$get("/categories");
     const tagRes = await $axios.$get("/tags");
     return {
-      recommendList: recommendRes,
       categoryOptions: categoryRes.map(item => item.categoryName),
       tagOptions: tagRes.map(item => item.tagName)
     };
-  },
-  filters: {
-    titleFilter: value => {
-      return value.substring(0, value.indexOf("-"));
-    },
-    linkFilter: value => {
-      return `/blog/${value.substring(value.indexOf("j") + 1)}`;
-    }
   },
   components: { Card, About },
   data() {
@@ -121,18 +95,31 @@ export default {
       busy: false,
       noMore: false,
       loading: true,
+      scroll: 0,
       query: {
         page: 0,
         limit: 6,
         blogCategoryName: "",
         blogTags: []
-      }
+      },
+      showQueryCard: false
     };
   },
-  // "https://obs-myblog.obs.cn-south-1.myhuaweicloud.com/base/wallhaven-6k135l.jpg"
   created() {
     const index = Math.floor(Math.random() * 4) + 1;
     this.$store.commit("setImage", `/${index}.jpg`);
+    this.$axios
+      .$get(`/recommend`)
+      .then(res => this.$store.commit("setRecommends", res));
+  },
+  computed: {
+    queryContainerTopValue() {
+      let top = 50;
+      if (typeof document !== 'undefined') {
+        top = this.$store.state.scroll - document.documentElement.clientHeight * 0.85
+      }
+      return top > 50 ? top : 50;
+    }
   },
   methods: {
     handleClick() {
@@ -188,7 +175,8 @@ export default {
 .card-box {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: flex-end;
+  justify-content: space-around;
 }
 .btn-query {
   margin: 20px auto;
@@ -203,5 +191,39 @@ export default {
 }
 .recommend-item a:hover {
   text-decoration: underline;
+}
+.query-container {
+  position: absolute;
+  left: -12.5%;
+  width: 22%;
+  z-index: 2001;
+  transition: top .4s ease-in-out 0s;
+}
+.query-button {
+  display: inline-block;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #dcdfe6;
+  color: #606266;
+  padding: 12px 20px;
+  font-weight: 500;
+  font-size: 16px;
+  border-radius: 0 20px 20px 0;
+  transition: padding .4s ease 0s, transform .5s ease 0s;
+}
+.query-button:hover {
+  color: #409eff;
+  border-color: #c6e2ff;
+  background-color: #ecf5ff;
+  padding: 12px 40px 12px 28px;
+}
+.query-card {
+  opacity: 0.2;
+  transition: opacity .4s ease 0s, transform .5s ease-in 0s;
+}
+.query-card:hover {
+  opacity: 1;
 }
 </style>

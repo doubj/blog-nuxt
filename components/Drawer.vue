@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     beforeClose() {
-      this.$store.commit("setSearch", false);
+      this.$store.commit("toggleSearch");
     },
     fetchSearch() {
       if (this.keywords === undefined || this.keywords === "") {

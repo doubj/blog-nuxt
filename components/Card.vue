@@ -126,6 +126,9 @@ export default {
   padding: 0 5px 3px;
   border-radius: 8px 0 8px 0;
 }
+.card {
+  min-width: 300px;
+}
 .card a {
   color: #10ac84;
   text-decoration-line: none;
