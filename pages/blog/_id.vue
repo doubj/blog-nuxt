@@ -27,7 +27,7 @@
         data-aos-duration="800"
         data-aos-anchor-placement="center-bottom"
         data-aos-easing="ease-in-out"
-        :relationId="blog.blogId"
+        :blogId="blog.blogId"
         :type="'article'"
       ></CommentCard>
       <div style="display:flex;margin:30px 0;align-items: flex-start;">

@@ -41,14 +41,14 @@ const defaultComment = {
   content: "",
   type: "article",
   replyNickName: undefined,
-  relationId: 0,
+  blogId: 0,
   pid: 0
 };
 export default {
   name: "CommentCard",
   components: { CommentItems },
   props: {
-    relationId: {
+    blogId: {
       type: Number,
       required: true
     },
@@ -63,6 +63,11 @@ export default {
       items: [],
       total: 0,
       comment: Object.assign({}, defaultComment),
+      query: {
+        page: 1,
+        limit: 6,
+        blogId: this.blogId
+      },
       rules: {
         nickName: [
           { required: true, message: "请输入昵称", trigger: "blur" },
@@ -92,15 +97,9 @@ export default {
   methods: {
     init() {
       this.$axios
-        .$get(`/comment`, {
-          params: {
-            page: this.page,
-            type: this.type,
-            relationId: this.relationId
-          }
-        })
+        .$post(`/comment/query`, this.query)
         .then(res => {
-          this.comment.relationId = this.relationId;
+          this.comment.blogId = this.blogId;
           this.items = res.items;
           this.total = res.count;
         });
@@ -112,7 +111,7 @@ export default {
           this.$axios.$post(`/comment`, this.comment).then(res => {
             this.init();
             this.comment = Object.assign({}, defaultComment);
-            this.comment.relationId = this.relationId;
+            this.comment.blogId = this.blogId;
           });
         } else {
           return false;
@@ -139,7 +138,6 @@ export default {
         this.comment.replyNickName = replyNickName;
         this.comment.pid = id;
       }
-      console.log(this.comment)
     }
   }
 };
