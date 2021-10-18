@@ -1,7 +1,13 @@
-# blog-nuxt
+# First Of All
 
-> blog-nuxt
+**不再更新，不再更新，不再更新**  (大概率不会再更新了，写的也有点乱😂，多多包涵)
 
-# 效果图
+大学毕业设计(个人博客)的前台页面，用的Nuxt做的服务端渲染，UI组件用的ElementUI，还用到了很多第三方库如：动画(aos这个用起来很爽)，打字效果(vue-typer)，无限滚动(vue-infinite-scroll)，markdown解析(marked)。
 
-[点击查看](https://hexo-blog.obs.cn-south-1.myhuaweicloud.com/Vue%E5%8F%8ASpringBoot%E5%AE%9E%E7%8E%B0%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/home_page.gif)
+# 首页效果图
+
+![](/home_page.gif)
+
+# 文章详情页
+
+![](/article_detail.gif)
